@@ -15,7 +15,7 @@ class ItemList extends StatelessWidget {
       children: shoppingItems.map((item) {
         return Text(
           item.name,
-          style: TextStyle(fontSize: 28),
+          style: TextStyle(fontSize: 32),
           textAlign: TextAlign.center,
         );
       }).toList(),
