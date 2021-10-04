@@ -11,23 +11,23 @@ void main() {
     // Grab the first checkbox list tile.
     final checkBoxTile = find.byType(CheckboxListTile).first;
 
-    // Tap it.
+    // Tap the first checkbox.
     await tester.tap(checkBoxTile);
     await tester.pumpAndSettle();
 
-    // Check that there is now exactly one checkbox list tile whose value is true.
+    // Check that the value of the first checkbox is now true.
     var checkedCheckBox = find.byWidgetPredicate((widget)
-    => widget is CheckboxListTile && widget.value == true);
+    => widget is CheckboxListTile && widget.value == true).first;
     expect(checkedCheckBox, findsOneWidget);
-
-
+    
     // Tap it again.
     await tester.tap(checkedCheckBox);
     await tester.pumpAndSettle();
 
-    // Check that there is now no checkbox list tiles whose value is true.
+    // If the first checkbox value has been changed to false.
+    // There should now only be 3 checkboxes that are checked.
     checkedCheckBox = find.byWidgetPredicate((widget)
     => widget is CheckboxListTile && widget.value == true);
-    expect(checkedCheckBox, findsNothing);
+    expect(checkedCheckBox, findsNWidgets(3));
   });
 }

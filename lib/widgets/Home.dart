@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
 
   String nameInput = '';
 
-  void addNewItem(String name) {
+  void _addNewItem(String name) {
     final newItem = Item(name, false);
 
     setState(() {
@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
                       key: Key('addItemButton'),
                       icon: Icon(Icons.add),
                       onPressed: () => {
-                            addNewItem(nameInput),
+                            _addNewItem(nameInput),
                             Navigator.pop(context),
                           }),
                 ]),

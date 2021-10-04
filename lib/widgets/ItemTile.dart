@@ -11,10 +11,11 @@ class ItemTile extends StatefulWidget {
 }
 
 class _ItemTileState extends State<ItemTile> {
-  bool _isChecked = false;
 
-  void toggleCheckBox(bool isChecked) {
-    setState(() {_isChecked = isChecked;});
+  void _toggleCheckBox(bool isChecked) {
+    setState(() {
+      widget.item.isCollected = isChecked;
+    });
   }
 
   @override
@@ -26,8 +27,9 @@ class _ItemTileState extends State<ItemTile> {
         textAlign: TextAlign.center,
       ),
       controlAffinity: ListTileControlAffinity.leading,
-      value: _isChecked,
-      onChanged: (isChecked) => {toggleCheckBox(isChecked!)},
+      value: widget.item.isCollected,
+      onChanged: (isChecked) => {_toggleCheckBox(isChecked!)},
+      secondary: IconButton(icon: Icon(Icons.delete), onPressed: () {}, ),
     );
   }
 }
