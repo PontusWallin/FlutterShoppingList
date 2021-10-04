@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopping_list/model/Item.dart';
+import 'package:flutter_shopping_list/widgets/ItemTile.dart';
 
 class ItemList extends StatelessWidget {
   const ItemList({
@@ -11,14 +12,11 @@ class ItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: shoppingItems.map((item) {
-        return Text(
-          item.name,
-          style: TextStyle(fontSize: 32),
-          textAlign: TextAlign.center,
-        );
-      }).toList(),
+    return ListView.builder(
+      itemCount: shoppingItems.length,
+        itemBuilder: (context, index) {
+          return ItemTile(shoppingItems[index]);
+        }
     );
   }
 }

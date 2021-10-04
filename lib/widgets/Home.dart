@@ -14,11 +14,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<Item> shoppingItems = [
-    Item('Item 1', false),
-    Item('Item 2', false),
-    Item('Item 3', true),
-    Item('Item 4', true),
-    Item('Item 5', true),
+    Item('Apples', false),
+    Item('Milk', false),
+    Item('Bread', true),
+    Item('Ketchup', true),
+    Item('Chocolate Chip Cookies', true),
   ];
 
   String nameInput = '';
@@ -40,19 +40,22 @@ class _HomeState extends State<Home> {
             children: [
               Card(
                 elevation: 5,
-                child: Column(
-                    children: [
-                      TextField(
-                      decoration: InputDecoration(labelText: 'Item Name'),
-                        onChanged: (value) {
-                          nameInput = value;
-                        },
-                      ),
-                      IconButton(icon: Icon(Icons.add), onPressed: () => {
-                        addNewItem(nameInput),
-                        Navigator.pop(context),
-                      }),
-                    ]),
+                child: Column(children: [
+                  TextField(
+                    key: Key("addItemInputField"),
+                    decoration: InputDecoration(labelText: 'Item Name'),
+                    onChanged: (value) {
+                      nameInput = value;
+                    },
+                  ),
+                  IconButton(
+                      key: Key('addItemButton'),
+                      icon: Icon(Icons.add),
+                      onPressed: () => {
+                            addNewItem(nameInput),
+                            Navigator.pop(context),
+                          }),
+                ]),
               ),
             ],
           ),
@@ -66,6 +69,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(title: Text('Shopping List App'), actions: <Widget>[
         IconButton(
+          key: Key("addFromAppHeader"),
           icon: Icon(Icons.add),
           onPressed: () => _startAddNewItem(context),
         )
@@ -76,6 +80,7 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
+        key: Key("addItemFOB"),
         child: Icon(Icons.add),
         onPressed: () => _startAddNewItem(context),
       ),
