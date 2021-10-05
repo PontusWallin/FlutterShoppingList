@@ -13,10 +13,9 @@ class ItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: shoppingItems.length,
+        itemCount: shoppingItems.length,
         itemBuilder: (context, index) {
-          return ItemTile(shoppingItems[index]);
-        }
-    );
+          return ItemTile(index, shoppingItems[index]);
+        });
   }
 }

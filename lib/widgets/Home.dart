@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shopping_list/model/Item.dart';
+import 'package:flutter_shopping_list/providers/Items.dart';
+import 'package:provider/provider.dart';
 
 import 'ItemList.dart';
 
@@ -13,23 +14,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Item> shoppingItems = [
-    Item('Apples', false),
-    Item('Milk', false),
-    Item('Bread', true),
-    Item('Ketchup', true),
-    Item('Chocolate Chip Cookies', true),
-  ];
 
   String nameInput = '';
-
-  void _addNewItem(String name) {
-    final newItem = Item(name, false);
-
-    setState(() {
-      shoppingItems.add(newItem);
-    });
-  }
 
   void _startAddNewItem(BuildContext ctx) {
     showModalBottomSheet(
@@ -52,7 +38,7 @@ class _HomeState extends State<Home> {
                       key: Key('addItemButton'),
                       icon: Icon(Icons.add),
                       onPressed: () => {
-                            _addNewItem(nameInput),
+                        Provider.of<Items>(context, listen: false).addItem(nameInput),
                             Navigator.pop(context),
                           }),
                 ]),
@@ -66,6 +52,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final itemsData = Provider.of<Items>(context);
     return Scaffold(
       appBar: AppBar(title: Text('Shopping List App'), actions: <Widget>[
         IconButton(
@@ -76,7 +63,7 @@ class _HomeState extends State<Home> {
       ]),
       body: Container(
         margin: EdgeInsets.all(14),
-        child: ItemList(shoppingItems: shoppingItems),
+        child: ItemList(shoppingItems: itemsData.items),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(

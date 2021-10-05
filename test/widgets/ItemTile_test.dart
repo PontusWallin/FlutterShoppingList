@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shopping_list/widgets/Home.dart';
+import 'package:flutter_shopping_list/widgets/Wrapper.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('tapping the CheckBoxListTile', (WidgetTester tester) async {
+  testWidgets('tapping the CheckBoxListTile should uncheck one of the Tiles', (WidgetTester tester) async {
 
     // Build widget and trigger a frame.
-    await tester.pumpWidget(MaterialApp(home: Home()));
+    await tester.pumpWidget(MaterialApp(home: Wrapper()));
 
     // Grab the first checkbox list tile.
     final checkBoxTile = find.byType(CheckboxListTile).first;
@@ -29,5 +29,20 @@ void main() {
     checkedCheckBox = find.byWidgetPredicate((widget)
     => widget is CheckboxListTile && widget.value == true);
     expect(checkedCheckBox, findsNWidgets(3));
+  });
+
+  testWidgets('tapping the delete icon should remove one of the tiles', (WidgetTester tester) async {
+
+    // Build widget and trigger a frame.
+    await tester.pumpWidget(MaterialApp(home: Wrapper()));
+
+    // Grab the first delete icon button.
+    final checkBoxTile = find.byKey(ValueKey("Delete Button for 0"));
+
+    // Tap it.
+    await tester.tap(checkBoxTile);
+    await tester.pumpAndSettle();
+
+    expect(find.byType(CheckboxListTile), findsNWidgets(4));
   });
 }

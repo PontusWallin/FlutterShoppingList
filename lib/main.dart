@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shopping_list/widgets/Home.dart';
+import 'package:flutter_shopping_list/providers/Items.dart';
+import 'package:flutter_shopping_list/widgets/Wrapper.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +16,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: Home(),
+        home: ChangeNotifierProvider(
+          create: (ctx) => Items(),
+            child: Wrapper()
+        ),
     );
   }
 }
