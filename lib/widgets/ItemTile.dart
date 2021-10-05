@@ -36,7 +36,6 @@ class _ItemTileState extends State<ItemTile> {
         key: Key("Delete Button for " + widget.index.toString()),
         icon: Icon(Icons.delete), onPressed: () {
         Provider.of<Items>(context, listen: false).removeItem(widget.index);
-        print('Deleted from item with Key ' + widget.index.toString());
       }, ),
     );
   }
