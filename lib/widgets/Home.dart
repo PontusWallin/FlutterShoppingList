@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shopping_list/providers/Items.dart';
+import 'package:flutter_shopping_list/model/Item.dart';
+import 'package:flutter_shopping_list/services/database.dart';
 import 'package:provider/provider.dart';
 
 import 'ItemList.dart';
@@ -38,7 +39,7 @@ class _HomeState extends State<Home> {
                       key: Key('addItemButton'),
                       icon: Icon(Icons.add),
                       onPressed: () => {
-                        Provider.of<Items>(context, listen: false).addItem(nameInput),
+                        DatabaseService().addItem(nameInput, false),
                             Navigator.pop(context),
                           }),
                 ]),
@@ -52,7 +53,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final itemsData = Provider.of<Items>(context);
+    final itemsData = Provider.of<List<Item>>(context);
     return Scaffold(
       appBar: AppBar(title: Text('Shopping List App'), actions: <Widget>[
         IconButton(
@@ -63,7 +64,7 @@ class _HomeState extends State<Home> {
       ]),
       body: Container(
         margin: EdgeInsets.all(14),
-        child: ItemList(shoppingItems: itemsData.items),
+        child: ItemList(shoppingItems: itemsData),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(

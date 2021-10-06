@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shopping_list/model/Item.dart';
-import 'package:flutter_shopping_list/providers/Items.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_shopping_list/services/database.dart';
 
 class ItemTile extends StatefulWidget {
+
   final Item item;
   final int index;
   ItemTile(this.index, this.item);
@@ -14,10 +14,12 @@ class ItemTile extends StatefulWidget {
 }
 
 class _ItemTileState extends State<ItemTile> {
+  final DatabaseService databaseService = DatabaseService();
 
   void _toggleCheckBox(bool isChecked) {
     setState(() {
       widget.item.isCollected = isChecked;
+      databaseService.updateCollected(widget.item);
     });
   }
 
@@ -35,7 +37,7 @@ class _ItemTileState extends State<ItemTile> {
       secondary: IconButton(
         key: Key("Delete Button for " + widget.index.toString()),
         icon: Icon(Icons.delete), onPressed: () {
-        Provider.of<Items>(context, listen: false).removeItem(widget.index);
+        databaseService.removeItem(widget.item.uid);
       }, ),
     );
   }

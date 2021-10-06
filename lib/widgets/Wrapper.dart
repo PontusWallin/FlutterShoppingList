@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_shopping_list/providers/Items.dart';
+import 'package:flutter_shopping_list/model/Item.dart';
+import 'package:flutter_shopping_list/services/database.dart';
 import 'package:provider/provider.dart';
 
 import 'Home.dart';
@@ -9,8 +10,9 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (ctx) => Items(),
+    return StreamProvider<List<Item>>.value(
+        value: DatabaseService().items,
+        initialData: [],
         child: Home());
   }
 }
